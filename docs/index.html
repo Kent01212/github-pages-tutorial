@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>タイピングゲーム</title>
     <style>
-        body { text-align: center; font-family: Arial, sans-serif; }
-        #word { font-size: 24px; font-weight: bold; margin: 20px; display: none; }
-        #romaji { font-size: 20px; color: gray; display: none; }
-        #input { font-size: 18px; padding: 5px; display: none; }
-        #startMessage { font-size: 20px; color: red; }
+        body { text-align: center; font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        #container { display: flex; flex-direction: column; align-items: center; }
+        #word { font-size: 28px; font-weight: bold; margin: 20px; display: none; }
+        #romaji { font-size: 22px; color: gray; display: none; }
+        #input { font-size: 20px; padding: 8px; width: 300px; text-align: center; display: none; }
+        #startMessage { font-size: 22px; color: red; margin-bottom: 20px; }
+        #stats { margin-top: 20px; font-size: 18px; }
     </style>
 </head>
 <body>
