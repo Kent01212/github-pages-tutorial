@@ -7,26 +7,36 @@
     <style>
         body { text-align: center; font-family: Arial, sans-serif; }
         #word { font-size: 24px; font-weight: bold; margin: 20px; }
+        #romaji { font-size: 20px; color: gray; }
         #input { font-size: 18px; padding: 5px; }
     </style>
 </head>
 <body>
     <h1>タイピングゲーム</h1>
-    <p>表示される単語を正しく入力してください</p>
+    <p>表示される単語のローマ字を正しく入力してください</p>
     <div id="word">準備中...</div>
+    <div id="romaji"></div>
     <input type="text" id="input" autofocus>
     <p>スコア: <span id="score">0</span></p>
     <p>残り時間: <span id="timer">120</span>秒</p>
     
     <script>
-        const words = ["寿司", "天ぷら", "ラーメン", "うどん", "そば", "おにぎり"];
-        let currentWord = "";
+        const words = [
+            { kanji: "寿司", romaji: "sushi" },
+            { kanji: "天ぷら", romaji: "tenpura" },
+            { kanji: "ラーメン", romaji: "ramen" },
+            { kanji: "うどん", romaji: "udon" },
+            { kanji: "そば", romaji: "soba" },
+            { kanji: "おにぎり", romaji: "onigiri" }
+        ];
+        let currentWord = {};
         let score = 0;
         let timeLeft = 120;
 
         function newWord() {
             currentWord = words[Math.floor(Math.random() * words.length)];
-            document.getElementById("word").textContent = currentWord;
+            document.getElementById("word").textContent = currentWord.kanji;
+            document.getElementById("romaji").textContent = currentWord.romaji;
             document.getElementById("input").value = "";
         }
 
@@ -41,7 +51,7 @@
         }
 
         document.getElementById("input").addEventListener("input", function() {
-            if (this.value === currentWord) {
+            if (this.value.toLowerCase() === currentWord.romaji) {
                 score += 10;
                 document.getElementById("score").textContent = score;
                 this.value = "";
