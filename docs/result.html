@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>結果画面</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; }
+        #score { font-size: 24px; font-weight: bold; margin: 20px; }
+        #restart { font-size: 18px; padding: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>ゲーム終了</h1>
+    <p>あなたのスコア: <span id="score">0</span></p>
+    <button id="restart" onclick="restartGame()">もう一度プレイ</button>
+    
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+        
+        document.getElementById("score").textContent = getQueryParam("score") || 0;
+
+        function restartGame() {
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>

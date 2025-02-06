@@ -6,13 +6,15 @@
     <title>タイピングゲーム</title>
     <style>
         body { text-align: center; font-family: Arial, sans-serif; }
-        #word { font-size: 24px; font-weight: bold; margin: 20px; }
-        #romaji { font-size: 20px; color: gray; }
-        #input { font-size: 18px; padding: 5px; }
+        #word { font-size: 24px; font-weight: bold; margin: 20px; display: none; }
+        #romaji { font-size: 20px; color: gray; display: none; }
+        #input { font-size: 18px; padding: 5px; display: none; }
+        #startMessage { font-size: 20px; color: red; }
     </style>
 </head>
 <body>
     <h1>タイピングゲーム</h1>
+    <p id="startMessage">スペースキーを押してゲームを開始</p>
     <p>表示される単語のローマ字を正しく入力してください</p>
     <div id="word">準備中...</div>
     <div id="romaji"></div>
@@ -24,7 +26,7 @@
         const words = [
             { kanji: "寿司", romaji: "sushi" },
             { kanji: "天ぷら", romaji: "tenpura" },
-            { kanji: "ラーメン", romaji: "ramen" },
+            { kanji: "ラーメン", romaji: "ra-men" },
             { kanji: "うどん", romaji: "udon" },
             { kanji: "そば", romaji: "soba" },
             { kanji: "おにぎり", romaji: "onigiri" }
@@ -32,6 +34,8 @@
         let currentWord = {};
         let score = 0;
         let timeLeft = 120;
+        let gameStarted = false;
+        let timerInterval;
 
         function newWord() {
             currentWord = words[Math.floor(Math.random() * words.length)];
@@ -50,6 +54,25 @@
             }
         }
 
+        function startGame() {
+            if (!gameStarted) {
+                gameStarted = true;
+                document.getElementById("startMessage").style.display = "none";
+                document.getElementById("word").style.display = "block";
+                document.getElementById("romaji").style.display = "block";
+                document.getElementById("input").style.display = "block";
+                document.getElementById("input").focus();
+                newWord();
+                timerInterval = setInterval(updateTimer, 1000);
+            }
+        }
+
+        document.addEventListener("keydown", function(event) {
+            if (event.code === "Space") {
+                startGame();
+            }
+        });
+
         document.getElementById("input").addEventListener("input", function() {
             if (this.value.toLowerCase() === currentWord.romaji) {
                 score += 10;
@@ -58,9 +81,6 @@
                 newWord();
             }
         });
-
-        const timerInterval = setInterval(updateTimer, 1000);
-        newWord(); // ゲーム開始時に最初の単語を表示
     </script>
 </body>
 </html>
