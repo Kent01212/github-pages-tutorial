@@ -16,11 +16,13 @@
     <div id="word">準備中...</div>
     <input type="text" id="input" autofocus>
     <p>スコア: <span id="score">0</span></p>
+    <p>残り時間: <span id="timer">120</span>秒</p>
     
     <script>
         const words = ["寿司", "天ぷら", "ラーメン", "うどん", "そば", "おにぎり"];
         let currentWord = "";
         let score = 0;
+        let timeLeft = 120;
 
         function newWord() {
             currentWord = words[Math.floor(Math.random() * words.length)];
@@ -28,14 +30,26 @@
             document.getElementById("input").value = "";
         }
 
+        function updateTimer() {
+            if (timeLeft > 0) {
+                timeLeft--;
+                document.getElementById("timer").textContent = timeLeft;
+            } else {
+                clearInterval(timerInterval);
+                window.location.href = `result.html?score=${score}`;
+            }
+        }
+
         document.getElementById("input").addEventListener("input", function() {
             if (this.value === currentWord) {
                 score += 10;
                 document.getElementById("score").textContent = score;
+                this.value = "";
                 newWord();
             }
         });
 
+        const timerInterval = setInterval(updateTimer, 1000);
         newWord(); // ゲーム開始時に最初の単語を表示
     </script>
 </body>
