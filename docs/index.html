@@ -1,12 +1,42 @@
 <!DOCTYPE html>
-<html lang="jp">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>サンプル</title>
-    </head>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>タイピングゲーム</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; }
+        #word { font-size: 24px; font-weight: bold; margin: 20px; }
+        #input { font-size: 18px; padding: 5px; }
+    </style>
+</head>
+<body>
+    <h1>タイピングゲーム</h1>
+    <p>表示される単語を正しく入力してください</p>
+    <div id="word">準備中...</div>
+    <input type="text" id="input" autofocus>
+    <p>スコア: <span id="score">0</span></p>
+    
+    <script>
+        const words = ["寿司", "天ぷら", "ラーメン", "うどん", "そば", "おにぎり"];
+        let currentWord = "";
+        let score = 0;
 
-    <body>
-        test
-    </body>
+        function newWord() {
+            currentWord = words[Math.floor(Math.random() * words.length)];
+            document.getElementById("word").textContent = currentWord;
+            document.getElementById("input").value = "";
+        }
+
+        document.getElementById("input").addEventListener("input", function() {
+            if (this.value === currentWord) {
+                score += 10;
+                document.getElementById("score").textContent = score;
+                newWord();
+            }
+        });
+
+        newWord(); // ゲーム開始時に最初の単語を表示
+    </script>
+</body>
 </html>
